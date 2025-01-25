@@ -9,7 +9,7 @@ class Sitemap extends Tag
 {
     public string $url;
 
-    public Carbon $lastModificationDate;
+    public ?Carbon $lastModificationDate = null;
 
     public static function create(string $url): static
     {
@@ -19,8 +19,6 @@ class Sitemap extends Tag
     public function __construct(string $url)
     {
         $this->url = $url;
-
-        $this->lastModificationDate = Carbon::now();
     }
 
     public function setUrl(string $url = ''): static
@@ -30,9 +28,9 @@ class Sitemap extends Tag
         return $this;
     }
 
-    public function setLastModificationDate(DateTimeInterface $lastModificationDate): static
+    public function setLastModificationDate(?DateTimeInterface $lastModificationDate): static
     {
-        $this->lastModificationDate = Carbon::instance($lastModificationDate);
+        $this->lastModificationDate = empty($lastModificationDate) ? null : Carbon::instance($lastModificationDate);
 
         return $this;
     }
